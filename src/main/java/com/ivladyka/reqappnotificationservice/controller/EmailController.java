@@ -3,11 +3,14 @@ package com.ivladyka.reqappnotificationservice.controller;
 
 import com.ivladyka.reqappnotificationservice.service.EmailService;
 import com.ivladyka.reqappnotificationservice.util.QueueConsumer;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@EnableRabbit
 @RestController
 public class EmailController {
 
@@ -21,9 +24,9 @@ public class EmailController {
         this.emailService = emailService;
     }
 
-    @RequestMapping("/email")
-    public void sendEmail(@RequestBody String email) {
-
-        emailService.sendEmail(email);
+    @PostMapping("/email")
+    @RabbitListener(queues = "messagequeue")
+    public void sendNotification(@RequestBody String email) {
+        queueConsumer.receiveMessage(email);
     }
 }

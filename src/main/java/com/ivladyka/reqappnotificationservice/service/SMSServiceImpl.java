@@ -3,12 +3,17 @@ package com.ivladyka.reqappnotificationservice.service;
 
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SMSServiceImpl implements SMSService{
-    private static final String ACCOUNT_SID = "ACc6a7aed29b2382cd772b23a041df6842";
-    private static final String AUTH_TOKEN = "77f11a4e7c256f1b9cccd8002cbe6309";
+
+    @Value("${twilio.account.sid}")
+    private String ACCOUNT_SID;
+
+    @Value("${twilio.auth.token}")
+    private String AUTH_TOKEN;
 
     @Override
     public Message sendSMS(String phoneNumber, String oneTimeCode) {

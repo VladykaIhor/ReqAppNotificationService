@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailServiceImpl implements EmailService {
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Autowired
     public EmailServiceImpl(JavaMailSender javaMailSender) {
@@ -25,24 +25,5 @@ public class EmailServiceImpl implements EmailService {
         simpleMessage.setSubject("Test message to check if the mail notification service works =)");
         simpleMessage.setText("Hi!! This is a test message, you've sent it successfully!");
         javaMailSender.send(simpleMessage);
-    }
-
-
-    @Override
-    public MimeMessage generateMimeMessage() {
-        return null;
-//        MimeMessage mimeMessage = new MimeMessage();
-//        MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-//        Configuration cfg = new Configuration(Configuration.VERSION_2_3_27);
-//        Map<String, Object> root = new HashMap<>();
-//
-//        try {
-//            messageHelper.setSubject("Here's a test email notification");
-//            FileSystemResource file = new FileSystemResource(new File("templates/template.html"));
-////            messageHelper.setText();
-//
-//        } catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
     }
 }

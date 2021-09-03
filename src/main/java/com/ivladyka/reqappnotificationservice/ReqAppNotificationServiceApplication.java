@@ -6,11 +6,9 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 @SpringBootApplication
 @EnableEurekaClient
-
 public class ReqAppNotificationServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ReqAppNotificationServiceApplication.class, args);
     }
-
 }
